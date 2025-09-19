@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - 'feature/**'  # 👈 匹配所有 feature/ 开头的分支
   schedule:
     - cron: '00 16 * * *'  # 北京时间 00:00 (UTC+8)，对应UTC时间 16:00
   workflow_dispatch:
@@ -46,6 +47,9 @@ jobs:
           PASS4: ${{ secrets.PASS4 }}
           USER5: ${{ secrets.USER5 }}
           PASS5: ${{ secrets.PASS5 }}
+
+          # 签到模式
+          NS_RANDOM: ${{ vars.NS_RANDOM }}   # 👈 从 Variables 读取 NS_RANDOM
           
           # Cookie配置
           NS_COOKIE: ${{ vars.NS_COOKIE || secrets.NS_COOKIE }}
@@ -63,4 +67,6 @@ jobs:
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_USER_ID: ${{ secrets.TG_USER_ID }}
           TG_THREAD_ID: ${{ secrets.TG_THREAD_ID }}
-        run: python nodeseek_sign.py
+        run: 
+          echo "NS_RANDOM=$NS_RANDOM"
+          python nodeseek_sign.py
