@@ -51,7 +51,7 @@ jobs:
           NS_RANDOM: ${{ vars.NS_RANDOM }}   # 👈 从 Variables 读取 NS_RANDOM
           
           # Cookie配置
-          NS_COOKIE: ${{ vars.NS_COOKIE || secrets.NS_COOKIE }}
+          NS_COOKIE: ${{ secrets.NS_COOKIE }}
           
           # 验证码配置
           SOLVER_TYPE: ${{ secrets.SOLVER_TYPE }}
@@ -66,6 +66,4 @@ jobs:
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_USER_ID: ${{ secrets.TG_USER_ID }}
           TG_THREAD_ID: ${{ secrets.TG_THREAD_ID }}
-        run: 
-          echo "NS_RANDOM=$NS_RANDOM"
-          python nodeseek_sign.py
+        run: python nodeseek_sign.py
